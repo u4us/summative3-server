@@ -74,6 +74,8 @@ router.put('/products/:id', (req, res) => {
 	});	
 });
 
+// category API ###################################################
+
 // comment API #########################################################
 router.post('/comments', (req, res) => {
 	var comment = new Comment();
