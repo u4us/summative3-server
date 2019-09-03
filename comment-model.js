@@ -1,15 +1,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var CategorySchema = new Schema(
+var CommentSchema = new Schema(
   {
     id: Number,
-    comment: String,
+    description: String,
     product_id: Number,
     user_id: Number,
-    product_id: Number,
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Category', CategorySchema);
+module.exports = mongoose.model('Comment', CommentSchema);
