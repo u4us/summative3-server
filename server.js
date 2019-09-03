@@ -24,6 +24,7 @@ app.use(logger('dev'));
 var router = express.Router();
 
 // product API #####################################################################
+// get all
 router.get('/products', (req, res) => {
 	Product.find()
 	.then((item) => {
@@ -31,7 +32,7 @@ router.get('/products', (req, res) => {
 	});
 })
 
-//getOne + virtuals
+// getOne + virtuals
 router.get('/products/:id', (req, res) => {
 	Product.findOne({id:req.params.id})
 	.populate('user')
@@ -42,6 +43,7 @@ router.get('/products/:id', (req, res) => {
 	});
 })
 
+// create
 router.post('/products', (req, res) => {
 	var product = new Product();
 	product.id = Date.now();
@@ -55,6 +57,7 @@ router.post('/products', (req, res) => {
 	});
 });
 
+//delete
 router.delete('/products/:id', (req, res) => {
 	Product.deleteOne({ id: req.params.id })
 	.then(() => {
@@ -62,6 +65,7 @@ router.delete('/products/:id', (req, res) => {
 	});
 });
 
+//update
 router.put('/products/:id', (req, res) => {
 	Product.findOne({id:req.params.id})
 	.then((product) => {
@@ -75,6 +79,7 @@ router.put('/products/:id', (req, res) => {
 });
 
 // category API ###################################################
+
 
 // comment API #########################################################
 router.post('/comments', (req, res) => {
