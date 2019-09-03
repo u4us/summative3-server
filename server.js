@@ -23,7 +23,7 @@ app.use(logger('dev'));
 
 var router = express.Router();
 
-// products API #####################################################################
+// product API #####################################################################
 router.get('/products', (req, res) => {
 	Product.find()
 	.then((item) => {
@@ -74,7 +74,7 @@ router.put('/products/:id', (req, res) => {
 	});	
 });
 
-// comments API #########################################################
+// comment API #########################################################
 router.post('/comments', (req, res) => {
 	var comment = new Comment();
 	comment.id = Date.now();
@@ -88,8 +88,21 @@ router.post('/comments', (req, res) => {
 	});
 });
 
-app.use('/api', router);
+// user API #############################################################
+router.post('/users', (req, res) => {
+	var user = new User();
+	user.id = Date.now();
+	
+	var data = req.body;
+	Object.assign(user,data);
+	
+	user.save()
+	.then((user) => {
+	  	return res.json(user);
+	});
+});
 
-// launch our backend into a port
+
+app.use('/api', router);
 const apiPort = 3001;
 app.listen(apiPort, () => console.log('Listening on port '+apiPort));
