@@ -3,6 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var cors = require('cors');
+var fileUpload = require('express-fileupload');
 
 var Product = require('./product-model');
 var Category = require('./category-model');
@@ -20,6 +21,9 @@ app.use(cors());
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(logger('dev'));
+
+app.use(fileUpload());
+app.use(express.static('public'));
 
 var router = express.Router();
 
@@ -76,6 +80,20 @@ router.put('/products/:id', (req, res) => {
 	.then((item) => {
 		return res.json(item);
 	});	
+});
+
+//upload
+router.post('/upload', (req, res) => {
+
+	var files = Object.values(req.files);
+	var uploadedFile = files[0];
+
+	var newName = Date.now() + uploadedFile.name;
+
+	uploadedFile.mv('public/'+ newName, function(){
+		res.send(newName)
+	})
+	
 });
 
 // category API ###################################################

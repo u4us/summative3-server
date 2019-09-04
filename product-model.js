@@ -9,6 +9,7 @@ var ProductSchema = new Schema(
     id: Number,
     name: String,
     description: String,
+    photo: String,
     price: Number,
     category_id: Number,
     user_id: Number,
