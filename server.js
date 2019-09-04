@@ -81,6 +81,13 @@ router.put('/products/:id', (req, res) => {
 // category API ###################################################
 
 
+router.get('/categories', (req, res) => {
+	Category.find()
+	.then((items) => {
+	    return res.json(items);
+	});
+})
+
 // comment API #########################################################
 router.post('/comments', (req, res) => {
 	var comment = new Comment();
