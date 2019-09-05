@@ -8,7 +8,19 @@ var CommentSchema = new Schema(
     product_id: Number,
     user_id: Number,
   },
-  { timestamps: true }
+  { 
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+    }
+  }
 );
+
+CommentSchema.virtual('user', {
+	ref: 'User',
+	localField: 'user_id', 
+	foreignField: 'id', 
+	justOne: true,
+});
 
 module.exports = mongoose.model('Comment', CommentSchema);

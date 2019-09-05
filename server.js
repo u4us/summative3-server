@@ -36,12 +36,16 @@ router.get('/products', (req, res) => {
 	});
 })
 
-// getOne + virtuals
+// getOne + virtuals + meta
 router.get('/products/:id', (req, res) => {
 	Product.findOne({id:req.params.id})
 	.populate('user')
     .populate('category')
 	.populate('comments')
+	.populate({
+		path:'comments',
+		populate:'user'
+	})
 	.then((item) => {
 	    return res.json(item);
 	});
@@ -82,7 +86,7 @@ router.put('/products/:id', (req, res) => {
 	});	
 });
 
-//upload
+// fileUpload #########################################################
 router.post('/upload', (req, res) => {
 
 	var files = Object.values(req.files);
@@ -97,8 +101,6 @@ router.post('/upload', (req, res) => {
 });
 
 // category API ###################################################
-
-
 router.get('/categories', (req, res) => {
 	Category.find()
 	.then((items) => {
