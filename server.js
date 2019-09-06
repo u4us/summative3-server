@@ -10,7 +10,7 @@ var Category = require('./category-model');
 var User = require('./user-model');
 var Comment = require('./comment-model');
 
-var connectionString = 'mongodb://admin:admin@cluster0-shard-00-00-xv0nl.mongodb.net:27017,cluster0-shard-00-01-xv0nl.mongodb.net:27017,cluster0-shard-00-02-xv0nl.mongodb.net:27017/market?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority';
+var connectionString = 'mongodb://ishah:ishah@cluster0-shard-00-00-7cnir.mongodb.net:27017,cluster0-shard-00-01-7cnir.mongodb.net:27017,cluster0-shard-00-02-7cnir.mongodb.net:27017/niche-app?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority';
 mongoose.connect(connectionString,{ useNewUrlParser: true });
 var  db = mongoose.connection;
 db.once('open', () => console.log('Database connected'));
