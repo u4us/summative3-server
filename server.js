@@ -122,7 +122,32 @@ router.post('/comments', (req, res) => {
 	});
 });
 
+router.delete('/comments/:id', (req, res) => {
+	Comment.deleteOne({ id: req.params.id })
+	.then(() => {
+		return res.json('deleted');
+	});
+});
+
 // user API #############################################################
+router.get('/users', (req, res) => {
+
+	User.find()
+	.then((users) => {
+	    return res.json(users);
+	});
+
+})
+
+router.get('/users/:id', (req, res) => {
+
+
+	User.findOne({id:req.params.id})
+	.then((user) => {
+	    return res.json(user);
+	});
+})
+
 router.post('/users', (req, res) => {
 	var user = new User();
 	user.id = Date.now();
