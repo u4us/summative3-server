@@ -161,6 +161,16 @@ router.post('/users', (req, res) => {
 	});
 });
 
+// authenticate API ###########################################
+router.post('/authenticate', (req, res) => {
+	var {username,password} = req.body;
+	var credential = {username,password}
+	User.findOne(credential)
+	.then((user) => {
+	    return res.json(user);
+	});
+});
+
 
 app.use('/api', router);
 const apiPort = 3001;
