@@ -122,6 +122,19 @@ router.post('/comments', (req, res) => {
 	});
 });
 
+//update
+router.put('/comments/:id', (req, res) => {
+	Comment.findOne({id:req.params.id})
+	.then((product) => {
+		var data = req.body;
+		Object.assign(product,data);
+		return product.save()	
+	})
+	.then((item) => {
+		return res.json(item);
+	});	
+});
+
 router.delete('/comments/:id', (req, res) => {
 	Comment.deleteOne({ id: req.params.id })
 	.then(() => {
