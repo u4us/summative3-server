@@ -165,7 +165,16 @@ router.get('/users/:id', (req, res) => {
 
 router.post('/users/:id/favourites', (req, res) => {
 
-	console.log('coming soon')
+	var data = req.body;
+	var productId = data.productid
+	User.findOne({id:req.params.id})
+
+	then((user) => {
+		user.savedProjects.push(productId)
+		user.save()
+	    return res.json(user);
+	});
+	
 
 })
 
