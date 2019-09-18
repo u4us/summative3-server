@@ -168,8 +168,7 @@ router.post('/users/:id/favourites', (req, res) => {
 	var data = req.body;
 	var productId = data.productid
 	User.findOne({id:req.params.id})
-
-	then((user) => {
+	.then((user) => {
 		user.savedProjects.push(productId)
 		user.save()
 	    return res.json(user);
