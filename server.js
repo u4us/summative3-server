@@ -187,6 +187,7 @@ router.post('/authenticate', (req, res) => {
 	var {username,password} = req.body;
 	var credential = {username,password}
 	User.findOne(credential)
+	.populate('favourites')
 	.then((user) => {
 	    return res.json(user);
 	});
