@@ -108,6 +108,15 @@ router.get('/categories', (req, res) => {
 	});
 })
 
+router.get('/categories/:id', (req, res) => {
+	Category.findOne({id:req.params.id})
+	.populate('products')
+	.then((items) => {
+	    return res.json(items);
+	});
+
+})
+
 // comment API #########################################################
 router.post('/comments', (req, res) => {
 	var comment = new Comment();
