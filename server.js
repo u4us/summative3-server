@@ -156,9 +156,17 @@ router.get('/users/:id', (req, res) => {
 
 
 	User.findOne({id:req.params.id})
+	.populate('favourites')
 	.then((user) => {
 	    return res.json(user);
 	});
+})
+
+
+router.post('/users/:id/favourites', (req, res) => {
+
+	console.log('coming soon')
+
 })
 
 router.post('/users', (req, res) => {
