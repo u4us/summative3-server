@@ -178,10 +178,40 @@ router.post('/users/:id/favourites', (req, res) => {
 	var productId = data.productid
 	User.findOne({id:req.params.id})
 	.then((user) => {
-		user.savedProjects.push(productId)
-		user.save()
-	    return res.json(user);
-	});
+		user.savedProducts.push(productId)
+		return user.save()
+	})
+	.then(user => {
+		return User.findOne({id:req.params.id})
+		.populate('favourites')
+		
+	})
+	.then((user) => {
+		return res.json(user);
+		   
+	})
+	
+
+})
+
+router.delete('/users/:id/favourites/:productid', (req, res) => {
+
+
+	var productId = req.params.productid
+	User.findOne({id:req.params.id})
+	.then((user) => {
+		user.savedProducts.pull(productId)
+		return user.save()
+	})
+	.then(user => {
+		return User.findOne({id:req.params.id})
+		.populate('favourites')
+		
+	})
+	.then((user) => {
+		return res.json(user);
+		   
+	})
 	
 
 })

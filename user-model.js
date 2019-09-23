@@ -9,7 +9,7 @@ var UserSchema = new Schema(
     username: String,
     password: String,
     email: String,
-    savedProjects:[Number]
+    savedProducts:[Number]
   },
   {
   	timestamps: true,
@@ -20,7 +20,7 @@ var UserSchema = new Schema(
 
 UserSchema.virtual('favourites', {
   ref: 'Product', // The model to use
-  localField: 'savedProjects', // Find people where `localField`
+  localField: 'savedProducts', // Find people where `localField`
   foreignField: 'id', // is equal to `foreignField`
   justOne: false,
 
