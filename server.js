@@ -200,6 +200,18 @@ router.post('/users', (req, res) => {
 	});
 });
 
+router.put('/users/:id', (req, res) => {
+	User.findOne({id:req.params.id})
+	.then((user) => {
+		var data = req.body;
+		Object.assign(user,data);
+		return user.save()	
+	})
+	.then((item) => {
+		return res.json(user);
+	});	
+});
+
 // authenticate API ###########################################
 router.post('/authenticate', (req, res) => {
 	var {username,password} = req.body;
