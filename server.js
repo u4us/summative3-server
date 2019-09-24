@@ -166,6 +166,7 @@ router.get('/users/:id', (req, res) => {
 
 	User.findOne({id:req.params.id})
 	.populate('favourites')
+	.populate('products')
 	.then((user) => {
 	    return res.json(user);
 	});
