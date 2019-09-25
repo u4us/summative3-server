@@ -10,6 +10,9 @@ var UserSchema = new Schema(
     password: String,
     email: String,
     savedProducts:[Number]
+    location: String,
+    bio: String
+
   },
   {
   	timestamps: true,
@@ -22,6 +25,13 @@ UserSchema.virtual('favourites', {
   ref: 'Product', // The model to use
   localField: 'savedProducts', // Find people where `localField`
   foreignField: 'id', // is equal to `foreignField`
+  justOne: false,
+
+});
+UserSchema.virtual('products', {
+  ref: 'Product', // The model to use
+  localField: 'id', // Find people where `localField`
+  foreignField: 'user_id', // is equal to `foreignField`
   justOne: false,
 
 });

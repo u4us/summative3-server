@@ -166,11 +166,24 @@ router.get('/users/:id', (req, res) => {
 
 	User.findOne({id:req.params.id})
 	.populate('favourites')
+	.populate('products')
 	.then((user) => {
 	    return res.json(user);
 	});
 })
 
+
+router.put('/users/:id', (req, res) => {
+	User.findOne({id:req.params.id})
+	.then((user) => {
+		var data = req.body;
+		Object.assign(user,data);
+		return user.save()	
+	})
+	.then((item) => {
+		return res.json(item);
+	});	
+});
 
 router.post('/users/:id/favourites', (req, res) => {
 
@@ -227,6 +240,18 @@ router.post('/users', (req, res) => {
 	.then((user) => {
 	  	return res.json(user);
 	});
+});
+
+router.put('/users/:id', (req, res) => {
+	User.findOne({id:req.params.id})
+	.then((user) => {
+		var data = req.body;
+		Object.assign(user,data);
+		return user.save()	
+	})
+	.then((item) => {
+		return res.json(user);
+	});	
 });
 
 // authenticate API ###########################################
