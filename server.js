@@ -167,6 +167,7 @@ router.get('/users/:id', (req, res) => {
 	User.findOne({id:req.params.id})
 	.populate('favourites')
 	.populate('products')
+	.populate('cart')
 	.then((user) => {
 	    return res.json(user);
 	});
@@ -184,6 +185,8 @@ router.put('/users/:id', (req, res) => {
 		return res.json(item);
 	});	
 });
+
+//favourites
 
 router.post('/users/:id/favourites', (req, res) => {
 
@@ -203,8 +206,6 @@ router.post('/users/:id/favourites', (req, res) => {
 		return res.json(user);
 		   
 	})
-	
-
 })
 
 router.delete('/users/:id/favourites/:productid', (req, res) => {
@@ -225,9 +226,9 @@ router.delete('/users/:id/favourites/:productid', (req, res) => {
 		return res.json(user);
 		   
 	})
-	
-
 })
+
+//cart
 
 router.post('/users/:id/cart', (req, res) => {
 
@@ -235,7 +236,7 @@ router.post('/users/:id/cart', (req, res) => {
 	var productId = data.productid
 	User.findOne({id:req.params.id})
 	.then((user) => {
-		user.cart.push(productId)
+		user.myCart.push(productId)
 		return user.save()
 	})
 	.then(user => {
@@ -244,11 +245,27 @@ router.post('/users/:id/cart', (req, res) => {
 		
 	})
 	.then((user) => {
-		return res.json(user);
-		   
+		return res.json(user);		   
 	})
-	
+})
 
+router.delete('/users/:id/cart/:productid', (req, res) => {
+
+
+	var productId = req.params.productid
+	User.findOne({id:req.params.id})
+	.then((user) => {
+		user.myCart.pull(productId)
+		return user.save()
+	})
+	.then(user => {
+		return User.findOne({id:req.params.id})
+		.populate('cart')
+		
+	})
+	.then((user) => {
+		return res.json(user);		   
+	})
 })
 
 router.post('/users', (req, res) => {
