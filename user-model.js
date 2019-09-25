@@ -10,6 +10,7 @@ var UserSchema = new Schema(
     password: String,
     email: String,
     savedProducts:[Number],
+    cart:[Number],
     location: String,
     bio: String
 
@@ -33,7 +34,12 @@ UserSchema.virtual('products', {
   localField: 'id', // Find people where `localField`
   foreignField: 'user_id', // is equal to `foreignField`
   justOne: false,
-
+});
+UserSchema.virtual('cart', {
+  ref: 'Product', // The model to use
+  localField: 'cart', // Find people where `localField`
+  foreignField: 'id', // is equal to `foreignField`
+  justOne: false,
 });
 
 module.exports = mongoose.model('User', UserSchema);

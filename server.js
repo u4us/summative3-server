@@ -229,6 +229,28 @@ router.delete('/users/:id/favourites/:productid', (req, res) => {
 
 })
 
+router.post('/users/:id/cart', (req, res) => {
+
+	var data = req.body;
+	var productId = data.productid
+	User.findOne({id:req.params.id})
+	.then((user) => {
+		user.cart.push(productId)
+		return user.save()
+	})
+	.then(user => {
+		return User.findOne({id:req.params.id})
+		.populate('cart')
+		
+	})
+	.then((user) => {
+		return res.json(user);
+		   
+	})
+	
+
+})
+
 router.post('/users', (req, res) => {
 	var user = new User();
 	user.id = Date.now();
