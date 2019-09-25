@@ -172,6 +172,18 @@ router.get('/users/:id', (req, res) => {
 })
 
 
+router.put('/users/:id', (req, res) => {
+	User.findOne({id:req.params.id})
+	.then((user) => {
+		var data = req.body;
+		Object.assign(user,data);
+		return user.save()	
+	})
+	.then((item) => {
+		return res.json(item);
+	});	
+});
+
 router.post('/users/:id/favourites', (req, res) => {
 
 	var data = req.body;
