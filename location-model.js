@@ -6,7 +6,6 @@ var LocationSchema = new Schema(
     id: Number,
     address: String,
     name: String,
-    email: String,
 
   },
   {

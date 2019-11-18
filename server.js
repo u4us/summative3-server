@@ -328,6 +328,13 @@ router.post('/locations', (req, res) => {
 	});
 });
 
+router.delete('/locations/:id', (req, res) => {
+	Location.deleteOne({ id: req.params.id })
+	.then(() => {
+		return res.json('deleted');
+	});
+});
+
 
 app.use('/api', router);
 const apiPort = 3001;
